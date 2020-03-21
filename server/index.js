@@ -3,14 +3,12 @@ const app = express();
 const cors = require("cors");
 const pool = require("./db");
 
-//middleware
+// MIDDLEWARE
 app.use(cors());
 app.use(express.json()); //request.body
 
-
-//Routes
-
-//create a todo
+// ROUTES
+// POST REQUEST - TO CREATE A TODO
 app.post("/todos", async (request, response) => {
     try {
         const { description } = request.body;
@@ -23,7 +21,7 @@ app.post("/todos", async (request, response) => {
     }
 });
 
-//get all todos
+// GET REQUEST - TO GET ALL TODOS 
 app.get("/todos", async (request, response) => {
     try {
         const allTodos = await pool.query("SELECT * FROM todo");
@@ -33,7 +31,7 @@ app.get("/todos", async (request, response) => {
     }
 });
 
-//get a todo
+// GET REQUEST - TO GET A SPECIFIC TODO
 app.get("/todos/:id", async (request, response) => {
     try {
         const { id } = request.params;
@@ -45,7 +43,7 @@ app.get("/todos/:id", async (request, response) => {
     }
 });
 
-//update a todo
+// PUT REQUEST - TO UPDATE A SPECIFIC TODO
 app.put("/todos/:id", async (request, response) => {
     try {
         const { id } = request.params;
@@ -58,11 +56,11 @@ app.put("/todos/:id", async (request, response) => {
     }
 });
 
-//delete a todo
+// DELETE REQUEST - TO DELETE A SPECIFIC TODO
 app.delete("/todos/:id", async (request, response) => {
     try {
-        const {id} = request.params;
-        const deleteTodo = await pool.query ("DELETE FROM todo WHERE todo_id = $1", [id]);
+        const { id } = request.params;
+        const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [id]);
 
         response.json("Todo was deleted!");
     } catch (error) {
@@ -70,6 +68,8 @@ app.delete("/todos/:id", async (request, response) => {
     }
 });
 
+
+// SERVER START
 app.listen(5000, () => {
     console.log("Server has started on port, 5000");
 });
