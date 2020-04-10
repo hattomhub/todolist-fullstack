@@ -1,5 +1,5 @@
-# Todolist - Fullstack Project
-Todo List made with: PostgreSQL, Express, React, and Node.js
+# Todolist
+Todo List made with Express and persistend on PostgreSQL
 
 ### Prerequisites
 
